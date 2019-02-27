@@ -4,8 +4,11 @@
         <leftButtons/>
         <rightButtons/>
     </navigationBar>
+    <label wpercentage="1" alpha="1" marginTop="0" marginBottom="8" marginLeft="0" marginRight="0" paddingRight="2" paddingTop="2" paddingBottom="2" paddingLeft="2" textColor="#3d464d" fontFamily="OpenSans-Bold" fontSize="14" bind="main.tempLbl"/>
+    <label wpercentage="1" alpha="1" marginTop="0" marginBottom="8" marginLeft="0" marginRight="0" paddingRight="2" paddingTop="2" paddingBottom="2" paddingLeft="2" textColor="#1572BBFF" fontFamily="OpenSans-Bold" fontSize="14" bind="main.humLbl"/>
+    <label wpercentage="1" alpha="1" marginTop="0" marginBottom="8" marginLeft="0" marginRight="0" paddingRight="2" paddingTop="2" paddingBottom="2" paddingLeft="2" textColor="#B165AEFF" fontFamily="OpenSans-Bold" fontSize="14" bind="main.ambientLbl"/>
     <label wpercentage="1" alpha="1" marginTop="0" marginBottom="8" marginLeft="0" marginRight="0" paddingRight="2" paddingTop="2" paddingBottom="2" paddingLeft="2" textColor="#3d464d" bind="main.light1Lbl"/>
-    <image wpercentage="1" bind="main.light1.imagePath"/>
+    <image wpercentage="1" bind="main.light1"/>
     <button wpercentage="1" height="40" textAlignment="center" cornerRadius="2" alpha="1" backgroundColor="#a9b4ba" fontSize="15" marginTop="4" marginBottom="8" paddingRight="8" paddingTop="8" paddingBottom="8" paddingLeft="8" textColor="#ffffff" text="ON/OFF">
         <selectedState/>
         <highlightedState/>
@@ -14,7 +17,7 @@
         </event>
     </button>
     <label wpercentage="1" alpha="1" marginTop="0" marginBottom="8" marginLeft="0" marginRight="0" paddingRight="2" paddingTop="2" paddingBottom="2" paddingLeft="2" textColor="#3d464d" bind="main.light2Lbl"/>
-    <image wpercentage="1" bind="main.light2.imagePath"/>
+    <image wpercentage="1" bind="main.light2"/>
     <button wpercentage="1" height="40" textAlignment="center" cornerRadius="2" alpha="1" backgroundColor="#a9b4ba" fontSize="15" marginTop="4" marginBottom="8" paddingRight="8" paddingTop="8" paddingBottom="8" paddingLeft="8" textColor="#ffffff" text="ON/OFF">
         <selectedState/>
         <highlightedState/>
@@ -23,7 +26,7 @@
         </event>
     </button>
     <label wpercentage="1" alpha="1" marginTop="0" marginBottom="8" marginLeft="0" marginRight="0" paddingRight="2" paddingTop="2" paddingBottom="2" paddingLeft="2" textColor="#3d464d" bind="main.light3Lbl"/>
-    <image wpercentage="1" bind="main.light3.imagePath"/>
+    <image wpercentage="1" bind="main.light3"/>
     <button wpercentage="1" height="40" textAlignment="center" cornerRadius="2" alpha="1" backgroundColor="#a9b4ba" fontSize="15" marginTop="4" marginBottom="8" paddingRight="8" paddingTop="8" paddingBottom="8" paddingLeft="8" textColor="#ffffff" text="ON/OFF">
         <selectedState/>
         <highlightedState/>
