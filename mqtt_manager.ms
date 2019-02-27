@@ -3,24 +3,51 @@ Model Command{
     Integer relayIdx
 }
 
-Model BulbStates{
+Model Info{
     Bool bulb1State
     Bool bulb2State
     Bool bulb3State
+    Double temp
+    Double hum
+    Double lux
 }
 
 Module lightControllerModule{
     
     void initialize(){
-        broker.async.initialize()
-        broker.async.connect()
-        broker.async.subscribe(stateChannel,@function(lightControllerModule.onStateChanged))
+        
+        try{
+            broker.async.initialize()
+        }catch(e){
+            broker.ui.showAlert("Exception in initialize: "+e.name(), "Description: " + e.reason())
+        }    
+         
+        try{
+            broker.async.connect()
+        }catch(e){
+            broker.ui.showAlert("Exception in connect: "+e.name(), "Description: " + e.reason())
+        }   
+        
+        try{
+            broker.async.subscribe(stateChannel,@function(lightControllerModule.onStateChanged))
+        }catch(e){
+            broker.ui.showAlert("Exception in suscribe: "+e.name(), "Description: " + e.reason())
+        }   
+        
+        
     }
     
-    void onStateChanged(BulbStates bulbSt){
-        m.light1.state = bulbSt.bulb1State
-        m.light2.state = bulbSt.bulb2State
-        m.light3.state = bulbSt.bulb3State
+    void onStateChanged(Info bulbSt){
+    
+        broker.ui.showAlert("DEBUG", "onStateChanged")
+    
+        b1.state =  bulbSt.bulb1State
+        b2.state = bulbSt.bulb2State
+        b3.state = bulbSt.bulb3State
+        
+        m.light1 = b1.imagePath
+        m.light2 = b2.imagePath
+        m.light3 = b3.imagePath
     }
     
      void checkBulbState(){
