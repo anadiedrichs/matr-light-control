@@ -1,6 +1,6 @@
-Model Command{
+Model Command{ //TODO REVISAR ESTE FORMATO Y QUE PASAR (si nro led, o estado led, etc)
     String command
-    Integer relayIdx
+    Integer relayIdx 
 }
 
 Model Info{
@@ -18,20 +18,10 @@ Module lightControllerModule{
         
         try{
             broker.async.initialize()
-        }catch(e){
-            broker.ui.showAlert("Exception in initialize: "+e.name(), "Description: " + e.reason())
-        }    
-         
-        try{
             broker.async.connect()
-        }catch(e){
-            broker.ui.showAlert("Exception in connect: "+e.name(), "Description: " + e.reason())
-        }   
-        
-        try{
             broker.async.subscribe(stateChannel,@function(lightControllerModule.onStateChanged))
         }catch(e){
-            broker.ui.showAlert("Exception in suscribe: "+e.name(), "Description: " + e.reason())
+            broker.ui.showAlert("Exception : "+e.name(), "Description: " + e.reason())
         }   
         
         
@@ -39,7 +29,12 @@ Module lightControllerModule{
     
     void onStateChanged(Info bulbSt){
     
-        broker.ui.showAlert("DEBUG", "onStateChanged")
+ //       broker.ui.showAlert("DEBUG", bulbSt.bulb1State.toString())
+//        broker.ui.showAlert("DEBUG", bulbSt.bulb2State.toString())
+//        broker.ui.showAlert("DEBUG", bulbSt.bulb3State.toString())
+//        broker.ui.showAlert("DEBUG", bulbSt.temp.toString())
+//        broker.ui.showAlert("DEBUG", bulbSt.hum.toString())
+//        broker.ui.showAlert("DEBUG", bulbSt.lux.toString())
     
         b1.state =  bulbSt.bulb1State
         b2.state = bulbSt.bulb2State
@@ -48,15 +43,21 @@ Module lightControllerModule{
         m.light1 = b1.imagePath
         m.light2 = b2.imagePath
         m.light3 = b3.imagePath
+        
+        m.tempLbl = bulbSt.temp.toString() + " °C" 
+        m.humLbl = bulbSt.hum.toString() + " %"
+        m.ambientLbl = bulbSt.lux.toString() + " lx"
     }
     
      void checkBulbState(){
-        Command command = Command(command:"GET-STATE")
+        Command command = Command(command:"GET-STATE") //TODO check command
         broker.async.publish(commandChannel,command)
     }
     
     void toggleBulb(Integer idx){
-        Command command = Command(command:"TOGGLE-RELAY",relayIdx:idx)
+        Command command = Command(command:"TOGGLE-RELAY",relayIdx:idx) //TODO check command
         broker.async.publish(commandChannel,command)
+        broker.ui.showAlert("DEBUG", idx.toString())
+        
     }
 }
