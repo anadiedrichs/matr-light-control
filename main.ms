@@ -15,6 +15,7 @@ RuleContext BulbContext{
 
 
 Application {
+
     String bulbOnImagePath 
     String bulbOffImagePath
     
@@ -45,47 +46,31 @@ Application {
         m.light3 = b3.imagePath //Bulb(imagePath:bulbOffImagePath)
        
         broker.ui.push("Main",m)
-        //lightControllerModule.initialize()
-        
-        try{
-            broker.async.initialize()
-        }catch(e){
-            broker.ui.showAlert("Exception in initialize: "+e.name(), "Description: " + e.reason())
-        }    
-         
-        try{
-            broker.async.connect()
-        }catch(e){
-            broker.ui.showAlert("Exception in connect: "+e.name(), "Description: " + e.reason())
-        }   
-        
-        try{
-            broker.async.subscribe(stateChannel,@function(lightControllerModule.onStateChanged))
-        }catch(e){
-            broker.ui.showAlert("Exception in suscribe: "+e.name(), "Description: " + e.reason())
-        }   
+        lightControllerModule.initialize()
+
     }
 }
 
 Entry Experience Main {
 
-    String tempLbl value("Temperature value") as Label
-    String humLbl value("Humidity value") as Label
-    String ambientLbl value("Intensity light value") as Label
+    String desc1Lbl value("Temperatura:") as Label
+    String tempLbl value("Temp") as Label
+    String desc2Lbl value("Humedad:") as Label
+    String humLbl value("Hum") as Label
+    String desc3Lbl value("Intensidad de luz:") as Label
+    String ambientLbl value("lux") as Label
     
-    String light1Lbl value("Ligth 1") as Label
+    String light1Lbl value("Led 1:") as Label
     String light1 as Image
     Decision light1Btn action("MainContext.onLight1Pressed") label("ON/OFF")
-    
-    String light2Lbl value("Ligth 2") as Label
+    String light2Lbl value("Led 2:") as Label
     String light2 as Image
     Decision light2Btn action("MainContext.onLight2Pressed") label("ON/OFF")
-    
-    String light3Lbl value("Ligth 3") as Label
+    String light3Lbl value("Led 3:") as Label
     String light3 as Image
     Decision light3Btn action("MainContext.onLight3Pressed") label("ON/OFF")
     
-    String logs value("logs") as Label
+    String logs value("logs") as Label  //que mostrar en los logs?
 }
 
 RuleContext MainContext {
@@ -100,4 +85,11 @@ RuleContext MainContext {
     Rule onLight3Pressed{
         lightControllerModule.toggleBulb(3)
     }
+//    Rule onBulbStateChanged listen (state from Bulb as bulb){
+//        if (bulb.state){
+//            bulb.imagePath = bulbOnImagePath
+//        }else{
+//            bulb.imagePath = bulbOffImagePath
+//        }
+//    }
 }
