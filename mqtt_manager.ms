@@ -35,29 +35,36 @@ Module lightControllerModule{
 //        broker.ui.showAlert("DEBUG", bulbSt.temp.toString())
 //        broker.ui.showAlert("DEBUG", bulbSt.hum.toString())
 //        broker.ui.showAlert("DEBUG", bulbSt.lux.toString())
-    
-        b1.state =  bulbSt.bulb1State
-        b2.state = bulbSt.bulb2State
-        b3.state = bulbSt.bulb3State
+        if(bulbSt!=null  ){
         
-        m.light1 = b1.imagePath
-        m.light2 = b2.imagePath
-        m.light3 = b3.imagePath
+            b1.state =  bulbSt.bulb1State
+            b2.state = bulbSt.bulb2State
+            b3.state = bulbSt.bulb3State
+            
+            m.light1 = b1.imagePath
+            m.light2 = b2.imagePath
+            m.light3 = b3.imagePath
+            
+            m.tempLbl = bulbSt.temp.toString() + " °C" 
+            m.humLbl = bulbSt.hum.toString() + " %"
+            m.ambientLbl = bulbSt.lux.toString() + " lx"
+            m.date = Date()
         
-        m.tempLbl = bulbSt.temp.toString() + " °C" 
-        m.humLbl = bulbSt.hum.toString() + " %"
-        m.ambientLbl = bulbSt.lux.toString() + " lx"
+        }else {
+            //error al conectar o reconectar un dispositivo.
+            //broker.ui.showAlert("DEBUG", "bulbSt es null")
+        }
     }
     
      void checkBulbState(){
-        Command command = Command(command:"GET-STATE") //TODO check command
+        Command command = Command(command:"GET-STATE") 
         broker.async.publish(commandChannel,command)
     }
     
     void toggleBulb(Integer idx){
-        Command command = Command(command:"TOGGLE-RELAY",relayIdx:idx) //TODO check command
+        Command command = Command(command:"TOGGLE-RELAY",relayIdx:idx) 
         broker.async.publish(commandChannel,command)
-        broker.ui.showAlert("DEBUG", idx.toString())
+        //broker.ui.showAlert("DEBUG", idx.toString())
         
     }
 }

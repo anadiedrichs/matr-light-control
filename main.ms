@@ -29,8 +29,8 @@ Application {
     Main m
     
     OnInit {
-        bulbOnImagePath  = "https://i.imgur.com/OCHptxX.png"
-        bulbOffImagePath = "https://i.imgur.com/kq7Yfmg.png"
+        bulbOnImagePath  ="https://dl.dropboxusercontent.com/s/4n7q97nyyqfu935/bombillaON.png"//https://i.imgur.com/OCHptxX.png"
+        bulbOffImagePath = "https://i.imgur.com/OCHptxX.png" //"https://i.imgur.com/kq7Yfmg.png"
         
         commandChannel = "command"
         stateChannel = "home"
@@ -44,7 +44,7 @@ Application {
         m.light1 = b1.imagePath //Bulb(imagePath:bulbOffImagePath)
         m.light2 = b2.imagePath //Bulb(imagePath:bulbOffImagePath)
         m.light3 = b3.imagePath //Bulb(imagePath:bulbOffImagePath)
-       
+        m.logo = "https://dl.dropboxusercontent.com/s/frupwj51i0getz6/arduinoDayLogo.png"
         broker.ui.push("Main",m)
         lightControllerModule.initialize()
 
@@ -53,12 +53,15 @@ Application {
 
 Entry Experience Main {
 
+    String logo as Image
     String desc1Lbl value("Temperatura:") as Label
     String tempLbl value("Temp") as Label
     String desc2Lbl value("Humedad:") as Label
     String humLbl value("Hum") as Label
     String desc3Lbl value("Intensidad de luz:") as Label
     String ambientLbl value("lux") as Label
+    String desc4Lbl value("Última actualización:") as Label
+    Date date as Label 
     
     String light1Lbl value("Led 1:") as Label
     String light1 as Image
@@ -70,7 +73,6 @@ Entry Experience Main {
     String light3 as Image
     Decision light3Btn action("MainContext.onLight3Pressed") label("ON/OFF")
     
-    String logs value("logs") as Label  //que mostrar en los logs?
 }
 
 RuleContext MainContext {
@@ -85,11 +87,5 @@ RuleContext MainContext {
     Rule onLight3Pressed{
         lightControllerModule.toggleBulb(3)
     }
-//    Rule onBulbStateChanged listen (state from Bulb as bulb){
-//        if (bulb.state){
-//            bulb.imagePath = bulbOnImagePath
-//        }else{
-//            bulb.imagePath = bulbOffImagePath
-//        }
-//    }
+
 }
